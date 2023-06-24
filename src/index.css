@@ -83,7 +83,7 @@ button:focus-visible {
   background-color: #f9f9f9;
 }
 
-.container{
+.main-container{
   display: flex;
   justify-content: space-evenly;
   align-items: center;

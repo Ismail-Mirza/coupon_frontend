@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react';
 import axios, {AxiosResponse} from 'axios';
-const expirationDate = new Date();
+import useCouponStore from './store/useCoupon';
+const presentDate = new Date();
 
 
 const CouponForm = () => {
   const [couponCode, setCouponCode] = useState('');
   const [discountAmount, setDiscountAmount] = useState('');
   const [expirationHours, setExpirationHours] = useState('');
+  const fetchCoupons = useCouponStore((state) => state.fetchCoupons);
+
 
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
 
-    expirationDate.setHours(expirationDate.getHours() + parseInt(expirationHours));
+    presentDate.setHours(presentDate.getHours() + parseInt(expirationHours));
 
     const couponData = {
       code:couponCode,
       discount:discountAmount,
-      expirationDate: expirationDate.toISOString(),
+      expirationDate: presentDate.toISOString(),
     };
 
     try {
@@ -25,7 +28,7 @@ const CouponForm = () => {
 
       if (response.status === 201) {
 
-        window.location.reload()
+        fetchCoupons()
 
       }
       else
@@ -114,24 +117,31 @@ const CouponUpdateForm = ({
     _id,
     code,
     discount,
-    setHide  
+    setHide,
+    expirationDate,
 }:couponUpdateFormType) => {
+
   const [couponCode, setCouponCode] = useState('');
   const [discountAmount, setDiscountAmount] = useState('');
   const [expirationHours, setExpirationHours] = useState('');
+  const fetchCoupons = useCouponStore((state) => state.fetchCoupons);
+
   useEffect(()=>{
     setCouponCode(code);
     setDiscountAmount(String(discount));
-  },[code,discount])
+    //@ts-ignore  
+    setExpirationHours(String(Math.floor(Math.abs(new Date(expirationDate) - presentDate)/36e5)));
+    
+  },[code,discount,expirationDate])
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-    expirationDate.setHours(expirationDate.getHours() + parseInt(expirationHours));
+    presentDate.setHours(presentDate.getHours() + parseInt(expirationHours));
 
     const couponData = {
       code:couponCode,
       discount:discountAmount,
-      expirationDate: expirationDate.toISOString(),
+      expirationDate: presentDate.toISOString(),
     };
 
     try {
@@ -139,8 +149,7 @@ const CouponUpdateForm = ({
 
       if (response.status === 201) {
 
-        window.location.reload()
-
+        fetchCoupons()
       }
       else
       {
