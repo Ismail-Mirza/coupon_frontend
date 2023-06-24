@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import useCouponStore from './store/useCoupon';
 import CouponForm,{CouponUpdateForm} from './Form';
-import axios,{AxiosResponse,AxiosError} from 'axios';
+import axios from 'axios';
 
 const App=()=>{
 
@@ -15,12 +15,12 @@ const App=()=>{
   const handleDelete = (id:string)=>{
     // Make a DELETE request
 axios.delete(import.meta.env.VITE_API_URL+'coupon/delete/'+id+'/')
-.then((response: AxiosResponse) => {
+.then(() => {
   // Handle successful response
   // ...
   window.location.reload();
 })
-.catch((error: AxiosError) => {
+.catch(() => {
   // Handle error
   // ...
 });
@@ -31,6 +31,7 @@ axios.delete(import.meta.env.VITE_API_URL+'coupon/delete/'+id+'/')
   const handleUpdate =(coupon:any)=>
   {
      setHide(true);
+     //@ts-ignore
       setBody(<CouponUpdateForm {...coupon} setHide={setHide}/>)
   }
   return (

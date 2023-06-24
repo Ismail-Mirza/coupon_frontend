@@ -114,7 +114,6 @@ const CouponUpdateForm = ({
     _id,
     code,
     discount,
-    expirationDate:Date, 
     setHide  
 }:couponUpdateFormType) => {
   const [couponCode, setCouponCode] = useState('');
@@ -122,7 +121,7 @@ const CouponUpdateForm = ({
   const [expirationHours, setExpirationHours] = useState('');
   useEffect(()=>{
     setCouponCode(code);
-    setDiscountAmount(discount)
+    setDiscountAmount(String(discount));
   },[code,discount])
 
   const handleSubmit = async (e:any) => {
