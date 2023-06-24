@@ -93,12 +93,8 @@ const CouponForm = () => {
 
       <button
         type="submit"
-        style={{
-          padding: '8px 15px',
-          backgroundColor: '#f2f2f2',
-          border: 'none',
-          cursor: 'pointer',
-        }}
+        className='btn btn-primary my-1'
+        
       >
         Create
       </button>
@@ -213,25 +209,14 @@ const CouponUpdateForm = ({
 
       <button
         type="submit"
-        style={{
-          padding: '8px 15px',
-          backgroundColor: '#f2f2f2',
-          border: 'none',
-          cursor: 'pointer',
-        }}
+       className='btn btn-primary'
       >
         Update
       </button>
       <button
         type="button"
         onClick={()=>setHide(false)}
-        style={{
-          padding: '8px 15px',
-          backgroundColor: '#f2f2f2',
-          border: 'none',
-          cursor: 'pointer',
-          marginTop:'20px'
-        }}
+       className='btn btn-warning my-2'
       >
         Cancel
       </button>
